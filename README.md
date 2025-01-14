@@ -191,122 +191,44 @@ Utilize ferramentas como Postman, Insomnia ou cURL para testar os endpoints.
   - **200 OK**: Retorna a lista de processos.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Passo a Passo: Clonando e Executando o Projeto Spring Boot com Docker
-1. Pré-Requisitos
-Antes de começar, certifique-se de que o seguinte está instalado na máquina:
-
-Git: Para clonar o repositório.
-Docker: Para construir e executar o container.
 
 
-2. Clonar o Repositório
-O primeiro passo é clonar o projeto Spring Boot a partir do repositório Git.
+# Processo com Docker Container - ProcessoJudiciaisApi
 
-No terminal, execute o comando:
+## Pré-requisitos  
 
-git clone https://github.com/usuario/repo-springboot-api.git
+Antes de começar, certifique-se de que você possui as seguintes ferramentas instaladas em sua máquina:  
 
-cd ProcessoJuduciarioApi
+- **Git**  
+- **Docker**  
+- **Docker Compose** (se necessário para múltiplos containers)  
 
-3. Verificar Arquivos Necessários para o Docker
-Certifique-se de que o projeto contém:
+## Como executar  
 
-Um arquivo Dockerfile (usado para construir a imagem Docker).
-Um arquivo docker-compose.yml (se necessário, para subir múltiplos serviços).
-Exemplo de Dockerfile:
+Siga os passos abaixo para clonar o repositório, configurar o ambiente e rodar a API:  
 
-# Usar uma imagem base do Java
-FROM openjdk:17-jdk-slim
+### 1. Clone o repositório  
 
-# Definir o diretório de trabalho no container
-WORKDIR /app
-
-# Copiar o JAR para o container
-COPY target/*.jar app.jar
-
-# Expor a porta utilizada pela aplicação
-EXPOSE 8080
-
-# Comando para rodar a aplicação
-ENTRYPOINT ["java", "-jar", "app.jar"]
-docker build -t processo-api .
-
-4. Construir a Imagem Docker
-Se o repositório contém o código-fonte e você precisa construir a imagem Docker, use:
+```bash
+git clone <URL-DO-SEU-REPOSITORIO>
+cd ProcessoJudiciaisApi
 
 
-Entendido! Aqui está um passo a passo detalhado e focado para que uma outra pessoa consiga clonar o repositório de uma API feita em Spring Boot e executá-la utilizando Docker:
+2. Certifique-se de que o Docker está rodando
+Verifique se o Docker está ativo na sua máquina. Caso contrário, inicie o Docker antes de prosseguir.
 
-Passo a Passo: Clonando e Executando o Projeto Spring Boot com Docker
-1. Pré-Requisitos
-Antes de começar, certifique-se de que o seguinte está instalado na máquina:
+3. Build da imagem Docker
+No diretório raiz do projeto, execute o comando abaixo para criar a imagem Docker da aplicação:
 
-Git: Para clonar o repositório.
-Docker: Para construir e executar o container.
-2. Clonar o Repositório
-O primeiro passo é clonar o projeto Spring Boot a partir do repositório Git.
+docker build -t processo-judiciais-api .
 
-No terminal, execute o comando:
+4. Execute o container
+Para rodar a aplicação em um container, use o comando abaixo:
 
-bash
-git clone https://github.com/usuario/repo-springboot-api.git
-Depois, entre no diretório do projeto:
+docker run -d -p 8080:8080 --name processo-judiciais-container processo-judiciais-api
 
-bash
-cd repo-springboot-api
-3. Verificar Arquivos Necessários para o Docker
-Certifique-se de que o projeto contém:
-
-Um arquivo Dockerfile (usado para construir a imagem Docker).
-Um arquivo docker-compose.yml (se necessário, para subir múltiplos serviços).
-Exemplo de Dockerfile:
-
-dockerfile
-Copiar código
-# Usar uma imagem base do Java
-FROM openjdk:17-jdk-slim
-
-# Definir o diretório de trabalho no container
-WORKDIR /app
-
-# Copiar o JAR para o container
-COPY target/*.jar app.jar
-
-# Expor a porta utilizada pela aplicação
-EXPOSE 8080
-
-# Comando para rodar a aplicação
-ENTRYPOINT ["java", "-jar", "app.jar"]
-Se esses arquivos não existirem, será necessário obtê-los ou configurá-los antes de prosseguir.
-
-4. Construir a Imagem Docker
-Se o repositório contém o código-fonte e você precisa construir a imagem Docker, use:
-
-bash
-docker build -t api-processo .
-Explicação:
-
-docker build: Cria uma nova imagem Docker.
--t springboot-api: Nomeia a imagem como springboot-api.
-.: Refere-se ao diretório atual onde está o Dockerfile.
-5. Executar o Container
-Depois de construir a imagem ou caso a imagem já esteja disponível, inicie o container:
-docker run --name springboot-api-container -p 8080:8080 springboot-api
-
-Explicação:
-
---name springboot-api-container: Nomeia o container como springboot-api-container.
--p 8080:8080: Mapeia a porta 8080 do container para a máquina local.
-
-
-
-6. Acessar a API
-Após o container ser iniciado, a API estará disponível no navegador ou em ferramentas como Postman.
-
-URL: 
+5. Teste a API
+Acesse a API pelo seu navegador ou por uma ferramenta como o Postman no endereço:
 
 http://localhost:8080
-
-
-
 
