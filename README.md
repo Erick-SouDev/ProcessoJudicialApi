@@ -2,7 +2,7 @@
 # Processo Empresa Equilibrium Web  Teste Desenvolvedor  Backend Java
 
 
-# ApiProcesso
+# ProcessoJudicialApi
 
 API desenvolvida em **Java Spring Boot** para gerenciar processos. O projeto segue a arquitetura **MVC** e está configurado para rodar localmente utilizando **PostgreSQL** como banco de dados.
 
