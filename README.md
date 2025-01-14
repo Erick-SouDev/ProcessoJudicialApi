@@ -137,13 +137,7 @@ http://localhost:8080
 
 Utilize ferramentas como Postman, Insomnia ou cURL para testar os endpoints.
 
-Exemplo para listar os dados:
 
-```bash
-curl http://localhost:8080/api/processos
-```
-
----
 
 ## Endpoints Principais
 
