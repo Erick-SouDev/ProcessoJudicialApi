@@ -1,11 +1,6 @@
 
 # Processo Empresa Equilibrium Web  Teste Desenvolvedor  Backend Java
 
-## Descrição do Projeto
-
-Este projeto é uma aplicação desenvolvida em **Spring Boot** utilizando a arquitetura **MVC** com foco em microserviços. Ele gerencia processos e consome informações sobre tipos de processo de outro microserviço simulado pelo **Json Server**.
-
-O projeto foi desenvolvido como parte do teste para a Equilibrium Web, abrangendo operações **CRUD**, integração de microserviços, uso de **Docker** e boas práticas de desenvolvimento.
 
 # ApiProcesso
 
