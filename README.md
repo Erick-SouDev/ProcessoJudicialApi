@@ -303,7 +303,9 @@ Explicação:
 6. Acessar a API
 Após o container ser iniciado, a API estará disponível no navegador ou em ferramentas como Postman.
 
-URL: http://localhost:8080
+URL: 
+
+http://localhost:8080
 
 
 
