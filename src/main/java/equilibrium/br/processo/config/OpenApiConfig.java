@@ -21,11 +21,11 @@ public class OpenApiConfig {
 	                    .description("Documentação da API da Equilibrium Web para gestão de processos judiciais.")
 	                    .contact(new Contact()
 	                            .name("Equipe de Suporte")
-	                            .email("suporte@equilibriumweb.com"))
+	                            .email("contatoerickbruno@proton.me"))
 	            )
 	            .tags(Arrays.asList(
 	                    new Tag().name("Processos").description("Endpoints para gerenciar processos judiciais"),
-	                    new Tag().name("Gerrenciar Tipos de Processos").description("Endpoints para gerenciar Processos")
+	                    new Tag().name("Gerenciar  Processos Judiciais").description("Endpoints para gerenciar processos")
 	            ));
 	}
 }

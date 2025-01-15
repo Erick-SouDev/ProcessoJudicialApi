@@ -1,24 +1,25 @@
 package equilibrium.br.processo.HandlerExeption;
 
+import org.springframework.http.HttpStatus;
+
 public class ErroResponse {
 
-	private String codigoErro; // Código do erro (ex: "400", "404")
+	private int codigoErro; // Código do erro (ex: "400", "404")
+	private  String detalhe ; // detalhes do erro
 	private String mensagem; // Mensagem de erro
-	private String detalhes; // Detalhes adicionais sobre o erro (opcional)
-
 	// Construtores
-	public ErroResponse(String codigoErro, String mensagem, String detalhes) {
+	public ErroResponse(int codigoErro, String mensagem  , String detalhe) {
 		this.codigoErro = codigoErro;
 		this.mensagem = mensagem;
-		this.detalhes = detalhes;
+		this.detalhe = detalhe;
 	}
 
 	// Getters e Setters
-	public String getCodigoErro() {
+	public int getCodigoErro() {
 		return codigoErro;
 	}
 
-	public void setCodigoErro(String codigoErro) {
+	public void setCodigoErro(int codigoErro) {
 		this.codigoErro = codigoErro;
 	}
 
@@ -30,11 +31,11 @@ public class ErroResponse {
 		this.mensagem = mensagem;
 	}
 
-	public String getDetalhes() {
-		return detalhes;
+	public String getDetalhe() {
+		return detalhe;
 	}
 
-	public void setDetalhes(String detalhes) {
-		this.detalhes = detalhes;
+	public void setDetalhe(String detalhe) {
+		this.detalhe = detalhe;
 	}
 }

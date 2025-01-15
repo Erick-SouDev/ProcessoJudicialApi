@@ -12,10 +12,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableJpaRepositories(basePackages={"equilibrium.br.processo.repository"}) 
 @EnableWebMvc
 @ComponentScan(basePackages = "equilibrium.br.processo.*") // ou o pacote correto
-public class ProcessoJuducialApiApplication {
+public class ProcessoJudicialApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProcessoJuducialApiApplication.class, args);
+		SpringApplication.run(ProcessoJudicialApiApplication.class, args);
 	}
 
 }

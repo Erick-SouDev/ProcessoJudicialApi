@@ -1,16 +1,17 @@
+
 package equilibrium.br.processo.services;
 
 import java.util.List;
 import java.util.Optional;
-
+import equilibrium.br.processo.dto.DtoProcesso;
+import equilibrium.br.processo.entity.TipoProcesso;
+import equilibrium.br.processo.util.GerarNumeroProcesso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-
 import org.springframework.stereotype.Service;
 import equilibrium.br.processo.entity.Processo;
 import equilibrium.br.processo.exptions.ProcessoNaoEncontradoException;
 import equilibrium.br.processo.repository.ProcessoRepository;
-import equilibrium.br.processo.util.GerarNumeroProcesso;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -20,30 +21,35 @@ public class ServiceProcesso {
 	@Autowired
 	private ProcessoRepository processoRepository;
 
-	public Processo salvarProcesso(Processo processo) throws ProcessoNaoEncontradoException {
+	public Processo salvarProcesso(DtoProcesso dtoProcesso) throws ProcessoNaoEncontradoException {
 
-		if (processo.getId() == null) {
-			// Se o processo é novo, gera um número de processo único
-			processo.setNumeroProcesso(GerarNumeroProcesso.gerarMatriculaProcesso());
-			return processoRepository.save(processo); // Cria um novo processo
-		} else {
-			// Se o processo já existe, verifica se ele está presente no banco
-			Optional<Processo> processoExistente = processoRepository.findById(processo.getId());
+		Processo processo = new Processo();
 
-			if (!processoExistente.isPresent()) {
-				throw new ProcessoNaoEncontradoException("Processo com ID " + processo.getId() + " não encontrado.");
-			}
+        processo.setNumeroProcesso(GerarNumeroProcesso.gerarMatriculaProcesso());
+		processo.setObjetivo(dtoProcesso.getObjetivo());
+		processo.setDataEntrada(dtoProcesso.getDataEntrada());
+		processo.setValorRecurso(dtoProcesso.getValorRecurso());
+		processo.setTipoProcesso(dtoProcesso.getTipoProcesso());
+		// Salvar no banco de dados
+		return processoRepository.save(processo);
 
-			Processo processoParaAtualizar = processoExistente.get();
-			processoParaAtualizar.setDataEntrada(processo.getDataEntrada());
-			processoParaAtualizar.setValorRecurso(processo.getValorRecurso());
-			processoParaAtualizar.setObjetivo(processo.getObjetivo());
-			processoParaAtualizar.setNumeroProcesso(processo.getNumeroProcesso());
-			processoParaAtualizar.setTipoProcesso(processo.getTipoProcesso());
-
-			return processoRepository.save(processoParaAtualizar); // Atualiza o processo
-		}
 	}
+
+
+
+	public Processo editarProcesso(Processo processo) throws ProcessoNaoEncontradoException {
+
+		Processo processoParaAtualizar = new Processo();
+		processoParaAtualizar.setDataEntrada(processo.getDataEntrada());
+		processoParaAtualizar.setValorRecurso(processo.getValorRecurso());
+		processoParaAtualizar.setObjetivo(processo.getObjetivo());
+		processoParaAtualizar.setTipoProcesso(processo.getTipoProcesso());
+		// atualizar  no banco de dados
+		return processoRepository.save(processoParaAtualizar);
+
+	}
+
+
 
 	public Processo buscarProcesso(Long idProcesso) {
 
@@ -59,10 +65,10 @@ public class ServiceProcesso {
 		return processoRepository.findAll(PageRequest.of(pagina, limit)).getContent();
 	}
 
-    public Processo pesquisarProcessoPorNumero(String numeroProcesso) throws ProcessoNaoEncontradoException {
-        return processoRepository.findByNumeroProcesso(numeroProcesso)
-                .orElseThrow(() -> new ProcessoNaoEncontradoException(
-                        "Processo não encontrado."));
-    }
+	public Processo pesquisarProcessoPorNumero(String numeroProcesso) throws ProcessoNaoEncontradoException {
+		return processoRepository.findByNumeroProcesso(numeroProcesso)
+				.orElseThrow(() -> new ProcessoNaoEncontradoException(
+						"Processo não encontrado."));
+	}
 
 }
