@@ -1,6 +1,6 @@
 package equilibrium.br.processo.dto;
 
-import equilibrium.br.processo.entity.TipoProcesso;
+import equilibrium.br.processo.entity.TipoProcessoModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 public class DtoProcesso {
@@ -12,13 +12,13 @@ public class DtoProcesso {
 
     private String objetivo;
 
-    private TipoProcesso tipoProcesso;
+    private TipoProcessoModel tipoProcesso;
 
-    public TipoProcesso getTipoProcesso() {
+    public TipoProcessoModel getTipoProcesso() {
         return tipoProcesso;
     }
 
-    public void setTipoProcesso(TipoProcesso tipoProcesso) {
+    public void setTipoProcesso(TipoProcessoModel tipoProcesso) {
         this.tipoProcesso = tipoProcesso;
     }
 

@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Handler para a exceção "Processo não encontrado"
+    // Handler para a exceção "ProcessoModel não encontrado"
     @ExceptionHandler(ProcessoNaoEncontradoException.class)
     public ResponseEntity<ErroResponse> handleProcessoNaoEncontradoException(ProcessoNaoEncontradoException ex) {
-        ErroResponse erroResponse = new ErroResponse(Status.INFO  , ex.getMessage(),"Processo  não foi encontrado ou não  existe");
+        ErroResponse erroResponse = new ErroResponse(Status.INFO  , ex.getMessage(),"ProcessoModel  não foi encontrado ou não  existe");
         return new ResponseEntity<>(erroResponse, HttpStatus.NOT_FOUND);
     }
 

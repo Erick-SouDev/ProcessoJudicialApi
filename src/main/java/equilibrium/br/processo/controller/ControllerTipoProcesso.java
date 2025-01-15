@@ -1,7 +1,7 @@
 package equilibrium.br.processo.controller;
 
 import equilibrium.br.processo.dto.DtoTipoProcesso;
-import equilibrium.br.processo.entity.TipoProcesso;
+import equilibrium.br.processo.entity.TipoProcessoModel;
 import equilibrium.br.processo.services.ServiceTipoProcesso;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,11 +24,11 @@ public class ControllerTipoProcesso {
 
     @Operation(summary = "Cria tipo de processo ", description = "Este endpoint criar tipo de processo  com base nos dados enviados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Processo salvo  com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoProcesso.class))),
+            @ApiResponse(responseCode = "201", description = "ProcessoModel salvo  com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoProcessoModel.class))),
             @ApiResponse(responseCode = "400", description = " Dados de entrada inválidos.")
     })
     @PostMapping("/novotipo")
-    public ResponseEntity<TipoProcesso> criarNovoTipoProcesso(@RequestBody DtoTipoProcesso dtoTipoProcesso)  {
+    public ResponseEntity<TipoProcessoModel> criarNovoTipoProcesso(@RequestBody DtoTipoProcesso dtoTipoProcesso)  {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceTipoProcesso.criarTipoProcesso(dtoTipoProcesso));
     }
@@ -36,9 +36,9 @@ public class ControllerTipoProcesso {
     @GetMapping("/tiposprocessos")
     @Operation(summary = "Lista todos os tipos de processo", responses = {} , ignoreJsonView = false)
     @ApiResponses(value = {
-           @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json" ,schema = @Schema(implementation = TipoProcesso.class)) ,useReturnTypeSchema = true )
+           @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json" ,schema = @Schema(implementation = TipoProcessoModel.class)) ,useReturnTypeSchema = true )
     })
-    public List<TipoProcesso>  listarTiposProcesso() {
+    public List<TipoProcessoModel>  listarTiposProcesso() {
 
     return serviceTipoProcesso.listarTiposProcessos();
     }

@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tbl_processo")
-public class Processo implements Serializable {
+public class ProcessoModel implements Serializable {
 
 
 
@@ -33,7 +33,7 @@ public class Processo implements Serializable {
     
     @ManyToOne(cascade = CascadeType.REFRESH  , fetch = FetchType.EAGER)
     @JoinColumn(name ="tipo_processo_id"  )
-	private TipoProcesso tipoProcesso;
+	private TipoProcessoModel tipoProcesso;
 
 
 
@@ -98,13 +98,13 @@ public class Processo implements Serializable {
 
 
 
-	public TipoProcesso getTipoProcesso() {
+	public TipoProcessoModel getTipoProcesso() {
 		return tipoProcesso;
 	}
 
 
 
-	public void setTipoProcesso(TipoProcesso tipoProcesso) {
+	public void setTipoProcesso(TipoProcessoModel tipoProcesso) {
 		this.tipoProcesso = tipoProcesso;
 	}
 
@@ -125,7 +125,7 @@ public class Processo implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Processo other = (Processo) obj;
+		ProcessoModel other = (ProcessoModel) obj;
 		return Objects.equals(id, other.id) && Objects.equals(numeroProcesso, other.numeroProcesso);
 	}
 	

@@ -1,5 +1,4 @@
 package equilibrium.br.processo.util;
-
 import java.security.SecureRandom;
 
 public class GerarNumeroProcesso {

@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tbl_tipo_processo")
-public class TipoProcesso {
+public class TipoProcessoModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +29,7 @@ public class TipoProcesso {
 	
 	@OneToMany(mappedBy = "tipoProcesso" )
 	@JsonIgnore
-	List<Processo> processos = new ArrayList<>();
+	List<ProcessoModel> processos = new ArrayList<>();
 
 
 	public Long getId() {
@@ -52,12 +52,12 @@ public class TipoProcesso {
 	}
 
 
-	public List<Processo> getProcessos() {
+	public List<ProcessoModel> getProcessos() {
 		return processos;
 	}
 
 
-	public void setProcessos(List<Processo> processos) {
+	public void setProcessos(List<ProcessoModel> processos) {
 		this.processos = processos;
 	}
 
@@ -76,14 +76,14 @@ public class TipoProcesso {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoProcesso other = (TipoProcesso) obj;
+		TipoProcessoModel other = (TipoProcessoModel) obj;
 		return Objects.equals(id, other.id);
 	}
 
 
 	@Override
 	public String toString() {
-		return "TipoProcesso [id=" + id + ", descricao=" + descricao + ", processos=" + processos + "]";
+		return "TipoProcessoModel [id=" + id + ", descricao=" + descricao + ", processos=" + processos + "]";
 	}
 	
 	

@@ -1,6 +1,5 @@
 package equilibrium.br.processo.HandlerExeption;
 
-import org.springframework.http.HttpStatus;
 
 public class ErroResponse {
 
@@ -14,7 +13,6 @@ public class ErroResponse {
 		this.detalhe = detalhe;
 	}
 
-	// Getters e Setters
 	public int getCodigoErro() {
 		return codigoErro;
 	}

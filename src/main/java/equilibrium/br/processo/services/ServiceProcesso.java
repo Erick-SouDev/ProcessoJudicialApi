@@ -1,14 +1,13 @@
 
 package equilibrium.br.processo.services;
 import java.util.List;
-import java.util.Optional;
+
 import equilibrium.br.processo.dto.DtoProcesso;
-import equilibrium.br.processo.entity.TipoProcesso;
+import equilibrium.br.processo.entity.ProcessoModel;
 import equilibrium.br.processo.util.GerarNumeroProcesso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import equilibrium.br.processo.entity.Processo;
 import equilibrium.br.processo.exptions.ProcessoNaoEncontradoException;
 import equilibrium.br.processo.repository.ProcessoRepository;
 import jakarta.transaction.Transactional;
@@ -20,9 +19,9 @@ public class ServiceProcesso {
 	@Autowired
 	private ProcessoRepository processoRepository;
 
-	public Processo salvarProcesso(DtoProcesso dtoProcesso) throws ProcessoNaoEncontradoException {
+	public ProcessoModel salvarProcesso(DtoProcesso dtoProcesso) throws ProcessoNaoEncontradoException {
 
-		Processo processo = new Processo();
+		ProcessoModel processo = new ProcessoModel();
 
         processo.setNumeroProcesso(GerarNumeroProcesso.gerarMatriculaProcesso());
 		processo.setObjetivo(dtoProcesso.getObjetivo());
@@ -33,9 +32,9 @@ public class ServiceProcesso {
 		return processoRepository.save(processo);
 
 	}
-	public Processo editarProcesso(Processo processo) throws ProcessoNaoEncontradoException {
+	public ProcessoModel editarProcesso(ProcessoModel processo) throws ProcessoNaoEncontradoException {
 
-		Processo processoParaAtualizar = new Processo();
+		ProcessoModel processoParaAtualizar = new ProcessoModel();
 		processoParaAtualizar.setDataEntrada(processo.getDataEntrada());
 		processoParaAtualizar.setValorRecurso(processo.getValorRecurso());
 		processoParaAtualizar.setObjetivo(processo.getObjetivo());
@@ -44,30 +43,30 @@ public class ServiceProcesso {
 		return processoRepository.save(processoParaAtualizar);
 
 	}
-	public Processo buscarProcesso(Long idProcesso) {
+	public ProcessoModel buscarProcesso(Long idProcesso) {
 
 		return processoRepository.findById(idProcesso)
-				.orElseThrow(() -> new IllegalArgumentException("Processo    não encontrado!"));
+				.orElseThrow(() -> new IllegalArgumentException("ProcessoModel    não encontrado!"));
 	}
 
 	public void removerProcesso(Long id) {
 		processoRepository.deleteById(id);
 	}
 
-	public List<Processo> buscarProcessosPaginados(int pagina, int limit) {
+	public List<ProcessoModel> buscarProcessosPaginados(int pagina, int limit) {
 		return processoRepository.findAll(PageRequest.of(pagina, limit)).getContent();
 	}
 
-	public Processo pesquisarProcessoPorNumero(String numeroProcesso) throws ProcessoNaoEncontradoException {
+	public ProcessoModel pesquisarProcessoPorNumero(String numeroProcesso) throws ProcessoNaoEncontradoException {
 		return processoRepository.pesquisarProcesso(numeroProcesso)
 				.orElseThrow(() -> new ProcessoNaoEncontradoException(
-						"Processo não encontrado."));
+						"ProcessoModel não encontrado."));
 	}
 
 
 
 
-	public  List<Processo> carregarProcessosPorTipo(String descricao){
+	public  List<ProcessoModel> carregarProcessosPorTipo(String descricao){
 		return  processoRepository.buscarProcessosPorTipoProcesso(descricao);
 	}
 

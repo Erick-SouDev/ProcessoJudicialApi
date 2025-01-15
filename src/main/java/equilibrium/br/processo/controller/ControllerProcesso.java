@@ -1,13 +1,12 @@
 package equilibrium.br.processo.controller;
 
 import equilibrium.br.processo.dto.DtoProcesso;
+import equilibrium.br.processo.entity.ProcessoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import equilibrium.br.processo.HandlerExeption.ErroResponse;
-import equilibrium.br.processo.entity.Processo;
 import equilibrium.br.processo.exptions.ProcessoNaoEncontradoException;
 import equilibrium.br.processo.services.ServiceProcesso;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,34 +29,33 @@ public class ControllerProcesso {
 
     @Operation(summary = "Cria novos  processos", description = "Este endpoint salva  um processo com base nos dados enviados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Processo salvo  com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
+            @ApiResponse(responseCode = "201", description = "ProcessoModel salvo  com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "400", description = " Dados de entrada inválidos.")
     })
     @PostMapping("/novoprocesso")
-    public ResponseEntity<Processo> novoProcesso(@RequestBody DtoProcesso dtoProcesso) throws ProcessoNaoEncontradoException {
-
+    public ResponseEntity<ProcessoModel> novoProcesso(@RequestBody DtoProcesso dtoProcesso) throws ProcessoNaoEncontradoException {
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceProcesso.salvarProcesso(dtoProcesso));
     }
 
 
     @Operation(summary = " Atualizar processo", description = "Este endpoint  atualiza um processo com base nos dados enviados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Processo  atualizado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
+            @ApiResponse(responseCode = "201", description = "ProcessoModel  atualizado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "400", description = " Dados de entrada inválidos.")
     })
     @PutMapping("/atualizarprocesso") // Esse endpoint cria ou atualiza um processo
-    public ResponseEntity<Processo> editarProcesso(@RequestBody Processo processo) throws ProcessoNaoEncontradoException {
+    public ResponseEntity<ProcessoModel> editarProcesso(@RequestBody ProcessoModel processo) throws ProcessoNaoEncontradoException {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(serviceProcesso.editarProcesso(processo));
     }
 
 
     @Operation(summary = "Buscar processo por ID", description = "Busca um processo pelo seu ID no banco de dados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Processo encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
+            @ApiResponse(responseCode = "200", description = "Processo encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "404", description = "Processo não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
     @GetMapping("/buscar/{id}") // Busca um processo pelo ID
-    public ResponseEntity<Processo> buscarProcessoPorId(@PathVariable Long id) {
-        Processo processo = serviceProcesso.buscarProcesso(id);
+    public ResponseEntity<ProcessoModel> buscarProcessoPorId(@PathVariable Long id) {
+        ProcessoModel processo = serviceProcesso.buscarProcesso(id);
         return ResponseEntity.status(HttpStatus.OK).body(processo);
     }
 
@@ -69,38 +67,35 @@ public class ControllerProcesso {
     @DeleteMapping("/excluir/{id}") // Remove um processo pelo ID
     public ResponseEntity<String> removerProcessoPorId(@PathVariable Long id) {
         serviceProcesso.removerProcesso(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Processo removido com sucesso.");
+        return ResponseEntity.status(HttpStatus.OK).body("ProcessoModel removido com sucesso.");
     }
 
 
-    @Operation(summary = "Buscar processo  pelo numero gerado de processo ", description = "Busca um processo pelo número de processo.")
+    @Operation(summary = "Buscar processo  pelo numero gerado de processo ", description = "Busca um processo pelo número .")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Processo encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
-            @ApiResponse(responseCode = "404", description = "Processo não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
+            @ApiResponse(responseCode = "200", description = "ProcessoModel encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
+            @ApiResponse(responseCode = "404", description = "ProcessoModel não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
     @GetMapping("/pesquisar/{numeroProcesso}") // Busca um processo pelo número do processo
-    public ResponseEntity<Processo> buscarProcessoPorNumero(@PathVariable String numeroProcesso)
+    public ResponseEntity<ProcessoModel> buscarProcessoPorNumero(@PathVariable String numeroProcesso)
             throws ProcessoNaoEncontradoException {
 
         return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.pesquisarProcessoPorNumero(numeroProcesso));
 
     }
 
-
     @Operation(summary = "Listar processos  com paginação", description = "Lista os processos por  pagina.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class)))})
+            @ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class)))})
     @GetMapping("/processos") // Lista todos os processos
-    public ResponseEntity<List<Processo>> listarProcessos(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int limit) {
+    public ResponseEntity<List<ProcessoModel>> listarProcessos(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int limit) {
         return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.buscarProcessosPaginados(page, limit));
     }
-
-
-
+    
     @Operation(summary = "Carregar processos por tipo de processo ", description = "Carrega todos os processos associados a um tipo de processo especificado pela descrição.")
-            @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
+            @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "404", description = "Tipo de processo não encontrado.", content = @Content(mediaType = "application/json"))})
     @GetMapping("/processosportipo/{descricao}")
-    public ResponseEntity<List<Processo>> carregarProcessosPorTipo(@PathVariable String descricao) {
+    public ResponseEntity<List<ProcessoModel>> carregarProcessosPorTipo(@PathVariable String descricao) {
         return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.carregarProcessosPorTipo(descricao));
     }
 
