@@ -198,3 +198,7 @@ Acesse a API pelo seu navegador ou por uma ferramenta como o Postman no endereç
 http://localhost:8080
 ```
 
+## Estrutura Da Documentação
+![Capturar](https://github.com/user-attachments/assets/aa782d0c-6688-4d8e-806e-704ad4dabbca)
+
+
