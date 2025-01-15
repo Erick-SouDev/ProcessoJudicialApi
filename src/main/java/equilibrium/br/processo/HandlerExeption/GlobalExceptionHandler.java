@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Handler para a exceção "ProcessoModel não encontrado"
+    // "ProcessoModel não encontrado"
     @ExceptionHandler(ProcessoNaoEncontradoException.class)
     public ResponseEntity<ErroResponse> handleProcessoNaoEncontradoException(ProcessoNaoEncontradoException ex) {
         ErroResponse erroResponse = new ErroResponse(Status.INFO  , ex.getMessage(),"ProcessoModel  não foi encontrado ou não  existe");
@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(erroResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // Handler para exceções de argumento inválido (por exemplo, parâmetros errados na requisição)
+    // exceções de argumento inválido
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErroResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
         ErroResponse erroResponse = new ErroResponse(Status.ERROR , ex.getMessage() , " Argumento invalido");
