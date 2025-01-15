@@ -1,9 +1,7 @@
 package equilibrium.br.processo.controller;
 
-
 import equilibrium.br.processo.dto.DtoProcesso;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +17,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = {"/api/v1/processo"}, produces = "application/json")
 @Tag(name = "Processos", description = "Gerenciamento de Processos")
@@ -26,7 +26,6 @@ public class ControllerProcesso {
 
     @Autowired
     private ServiceProcesso serviceProcesso;
-
 
 
     @Operation(summary = "Cria novos  processos", description = "Este endpoint salva  um processo com base nos dados enviados.")
@@ -52,7 +51,7 @@ public class ControllerProcesso {
     }
 
 
-    @Operation(summary = "Buscar Processo por ID", description = "Busca um processo pelo seu ID no banco de dados.")
+    @Operation(summary = "Buscar processo por ID", description = "Busca um processo pelo seu ID no banco de dados.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Processo encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
             @ApiResponse(responseCode = "404", description = "Processo não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
@@ -63,7 +62,7 @@ public class ControllerProcesso {
     }
 
 
-    @Operation(summary = "Remover Processo por ID", description = "Remove um processo pelo seu ID.")
+    @Operation(summary = "Remover processo por ID", description = "Remove um processo pelo seu ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Processo removido com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "404", description = "Processo não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
@@ -74,7 +73,7 @@ public class ControllerProcesso {
     }
 
 
-    @Operation(summary = "Buscar Processo por Número", description = "Busca um processo pelo número de processo.")
+    @Operation(summary = "Buscar processo  pelo numero gerado de processo ", description = "Busca um processo pelo número de processo.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Processo encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
             @ApiResponse(responseCode = "404", description = "Processo não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
@@ -87,12 +86,22 @@ public class ControllerProcesso {
     }
 
 
-    @Operation(summary = "Listar Processos Paginada", description = "Lista os processos com paginação.")
+    @Operation(summary = "Listar processos  com paginação", description = "Lista os processos por  pagina.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class)))})
     @GetMapping("/processos") // Lista todos os processos
-    public ResponseEntity<?> listarProcessos(@RequestParam(defaultValue = "0")  int page, @RequestParam(defaultValue = "0") int limit) {
+    public ResponseEntity<List<Processo>> listarProcessos(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int limit) {
         return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.buscarProcessosPaginados(page, limit));
+    }
+
+
+
+    @Operation(summary = "Carregar processos por tipo", description = "Carrega todos os processos associados a um tipo de processo especificado pela descrição.")
+            @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
+            @ApiResponse(responseCode = "404", description = "Tipo de processo não encontrado.", content = @Content(mediaType = "application/json"))})
+    @GetMapping("/processosportipo/{descricao}")
+    public ResponseEntity<List<Processo>> carregarProcessosPorTipo(@PathVariable String descricao) {
+        return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.carregarProcessosPorTipo(descricao));
     }
 
 

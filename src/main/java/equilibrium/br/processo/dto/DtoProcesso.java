@@ -1,11 +1,8 @@
 package equilibrium.br.processo.dto;
 
 import equilibrium.br.processo.entity.TipoProcesso;
-import jakarta.persistence.Column;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 public class DtoProcesso {
 
 

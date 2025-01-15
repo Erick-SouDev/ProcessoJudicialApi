@@ -1,6 +1,5 @@
 
 package equilibrium.br.processo.services;
-
 import java.util.List;
 import java.util.Optional;
 import equilibrium.br.processo.dto.DtoProcesso;
@@ -34,9 +33,6 @@ public class ServiceProcesso {
 		return processoRepository.save(processo);
 
 	}
-
-
-
 	public Processo editarProcesso(Processo processo) throws ProcessoNaoEncontradoException {
 
 		Processo processoParaAtualizar = new Processo();
@@ -48,9 +44,6 @@ public class ServiceProcesso {
 		return processoRepository.save(processoParaAtualizar);
 
 	}
-
-
-
 	public Processo buscarProcesso(Long idProcesso) {
 
 		return processoRepository.findById(idProcesso)
@@ -66,9 +59,16 @@ public class ServiceProcesso {
 	}
 
 	public Processo pesquisarProcessoPorNumero(String numeroProcesso) throws ProcessoNaoEncontradoException {
-		return processoRepository.findByNumeroProcesso(numeroProcesso)
+		return processoRepository.pesquisarProcesso(numeroProcesso)
 				.orElseThrow(() -> new ProcessoNaoEncontradoException(
 						"Processo não encontrado."));
+	}
+
+
+
+
+	public  List<Processo> carregarProcessosPorTipo(String descricao){
+		return  processoRepository.buscarProcessosPorTipoProcesso(descricao);
 	}
 
 }

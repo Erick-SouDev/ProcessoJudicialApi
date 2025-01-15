@@ -10,8 +10,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "tbl_processo")
 public class Processo implements Serializable {
-	
-	
+
+
+
 	private static final long serialVersionUID = 4622265375274049773L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +34,8 @@ public class Processo implements Serializable {
     @ManyToOne(cascade = CascadeType.REFRESH  , fetch = FetchType.EAGER)
     @JoinColumn(name ="tipo_processo_id"  )
 	private TipoProcesso tipoProcesso;
+
+
 
 
 	public Long getId() {
