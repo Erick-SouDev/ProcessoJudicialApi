@@ -174,7 +174,10 @@ docker build -t processo-judiciais-api .
 4. Execute o container
 Para rodar a aplicação em um container, use o comando abaixo:
 
-docker run -d -p 8080:8080 --name processo-judiciais-container processo-judiciais-api
+docker run -d -p 8080:8080 --name processo-judiciais-api
+
+
+
 
 5. Teste a API
 Acesse a API pelo seu navegador ou por uma ferramenta como o Postman no endereço:
