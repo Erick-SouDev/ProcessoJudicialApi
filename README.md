@@ -36,7 +36,7 @@ O projeto foi desenvolvido como parte do teste para a **Equilibrium Web**, abran
 
 ## Tecnologias Utilizadas
 
-- **Java 17 ou superior**
+- **Java 17+**
 - **Spring Boot 3+**
 - **SpringData**
 - **PostgreSQL**
@@ -69,7 +69,7 @@ git clone <URL_DO_REPOSITORIO>
 Acesse a pasta do projeto:
 
 ```bash
-cd ApiProcesso
+cd ProcessoJudicialApi
 ```
 
 ---
@@ -84,11 +84,9 @@ Acesse o PostgreSQL via terminal ou uma ferramenta gráfica (como DBeaver ou pgA
 psql -U postgres
 ```
 
-Crie o banco de dados chamado `processo_db`:
+Crie o banco de dados chamado `processo`:
 
-```sql
-CREATE DATABASE processo_db;
-```
+
 ```sql
 CREATE DATATABLE  processo;
 ```
@@ -105,7 +103,7 @@ CREATE DATATABLE  tipo_processo;
 No diretório do projeto, localize o arquivo `src/main/resources/application.properties` e configure as credenciais de conexão com o PostgreSQL. Um exemplo de configuração seria:
 
 ```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/processo_db
+spring.datasource.url=jdbc:postgresql://localhost:5432/processo
 spring.datasource.username=postgres
 spring.datasource.password=123
 spring.jpa.hibernate.ddl-auto=update
@@ -174,7 +172,10 @@ docker build -t processo-judiciais-api .
 4. Execute o container
 Para rodar a aplicação em um container, use o comando abaixo:
 
-docker run -d -p 8080:8080 --name processo-judiciais-container processo-judiciais-api
+docker run -d -p 8080:8080 --name api-processo
+
+
+
 
 5. Teste a API
 Acesse a API pelo seu navegador ou por uma ferramenta como o Postman no endereço:
