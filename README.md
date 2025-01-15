@@ -105,7 +105,7 @@ CREATE DATATABLE  tipo_processo;
 No diretório do projeto, localize o arquivo `src/main/resources/application.properties` e configure as credenciais de conexão com o PostgreSQL. Um exemplo de configuração seria:
 
 ```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/processo_db
+spring.datasource.url=jdbc:postgresql://localhost:5432/processo
 spring.datasource.username=postgres
 spring.datasource.password=123
 spring.jpa.hibernate.ddl-auto=update
@@ -174,7 +174,7 @@ docker build -t processo-judiciais-api .
 4. Execute o container
 Para rodar a aplicação em um container, use o comando abaixo:
 
-docker run -d -p 8080:8080 --name processo-judiciais-api
+docker run -d -p 8080:8080 --name api-processo
 
 
 
