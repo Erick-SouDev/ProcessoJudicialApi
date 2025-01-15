@@ -96,7 +96,7 @@ public class ControllerProcesso {
 
 
 
-    @Operation(summary = "Carregar processos por tipo", description = "Carrega todos os processos associados a um tipo de processo especificado pela descrição.")
+    @Operation(summary = "Carregar processos por tipo de processo ", description = "Carrega todos os processos associados a um tipo de processo especificado pela descrição.")
             @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Processo.class))),
             @ApiResponse(responseCode = "404", description = "Tipo de processo não encontrado.", content = @Content(mediaType = "application/json"))})
     @GetMapping("/processosportipo/{descricao}")
