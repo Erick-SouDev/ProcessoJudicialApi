@@ -1,5 +1,5 @@
-
 # Processo Empresa Equilibrium Web  Teste Desenvolvedor  Backend Java
+
 
 
 # ProcessoJudicialApi
@@ -88,13 +88,24 @@ Crie o banco de dados chamado `processo`:
 
 
 ```sql
-CREATE DATATABLE  processo;
+CREATE DATABASE processo;
 ```
+
+Crie as tabelas:
+
 ```sql
-CREATE DATATABLE  tipo_processo;
+CREATE TABLE processo (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tipo_processo (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL
+);
 ```
-
-
 
 ---
 
@@ -136,9 +147,7 @@ http://localhost:8080
 Utilize ferramentas como Postman, Insomnia ou cURL para testar os endpoints.
 
 
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+---
 
 # Processo com Docker Container - ProcessoJudiciaisApi
 
@@ -159,26 +168,33 @@ Siga os passos abaixo para clonar o repositório, configurar o ambiente e rodar 
 ```bash
 git clone <URL-DO-SEU-REPOSITORIO>
 cd ProcessoJudiciaisApi
+```
 
+### 2. Certifique-se de que o Docker está rodando
 
-2. Certifique-se de que o Docker está rodando
 Verifique se o Docker está ativo na sua máquina. Caso contrário, inicie o Docker antes de prosseguir.
 
-3. Build da imagem Docker
+### 3. Build da imagem Docker
+
 No diretório raiz do projeto, execute o comando abaixo para criar a imagem Docker da aplicação:
 
+```bash
 docker build -t processo-judiciais-api .
+```
 
-4. Execute o container
+### 4. Execute o container
+
 Para rodar a aplicação em um container, use o comando abaixo:
 
-docker run -d -p 8080:8080 --name api-processo
+```bash
+docker run -d -p 8080:8080 --name api-processo processo-judiciais-api
+```
 
+### 5. Teste a API
 
-
-
-5. Teste a API
 Acesse a API pelo seu navegador ou por uma ferramenta como o Postman no endereço:
 
+```bash
 http://localhost:8080
+```
 
