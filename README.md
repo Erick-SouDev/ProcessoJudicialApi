@@ -36,7 +36,7 @@ O projeto foi desenvolvido como parte do teste para a **Equilibrium Web**, abran
 
 ## Tecnologias Utilizadas
 
-- **Java 17 ou superior**
+- **Java 17+**
 - **Spring Boot 3+**
 - **SpringData**
 - **PostgreSQL**
@@ -69,7 +69,7 @@ git clone <URL_DO_REPOSITORIO>
 Acesse a pasta do projeto:
 
 ```bash
-cd ApiProcesso
+cd ProcessoJudicialApi
 ```
 
 ---
@@ -84,11 +84,9 @@ Acesse o PostgreSQL via terminal ou uma ferramenta gráfica (como DBeaver ou pgA
 psql -U postgres
 ```
 
-Crie o banco de dados chamado `processo_db`:
+Crie o banco de dados chamado `processo`:
 
-```sql
-CREATE DATABASE processo_db;
-```
+
 ```sql
 CREATE DATATABLE  processo;
 ```
