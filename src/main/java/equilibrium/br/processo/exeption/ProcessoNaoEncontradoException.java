@@ -1,4 +1,4 @@
-package equilibrium.br.processo.exptions;
+package equilibrium.br.processo.exeption;
 
 public class ProcessoNaoEncontradoException extends Exception {
 	

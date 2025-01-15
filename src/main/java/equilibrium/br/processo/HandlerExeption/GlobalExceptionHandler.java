@@ -1,6 +1,6 @@
 package equilibrium.br.processo.HandlerExeption;
 import ch.qos.logback.core.status.Status;
-import equilibrium.br.processo.exptions.ProcessoNaoEncontradoException;
+import equilibrium.br.processo.exeption.ProcessoNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // "ProcessoModel não encontrado"
+    // " exceções de processo de dados  não encontrado"
     @ExceptionHandler(ProcessoNaoEncontradoException.class)
     public ResponseEntity<ErroResponse> handleProcessoNaoEncontradoException(ProcessoNaoEncontradoException ex) {
-        ErroResponse erroResponse = new ErroResponse(Status.INFO  , ex.getMessage(),"ProcessoModel  não foi encontrado ou não  existe");
+        ErroResponse erroResponse = new ErroResponse(Status.INFO  , ex.getMessage(),"processo  não foi encontrado ou não  existe");
         return new ResponseEntity<>(erroResponse, HttpStatus.NOT_FOUND);
     }
 

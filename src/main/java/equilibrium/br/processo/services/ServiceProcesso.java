@@ -8,7 +8,7 @@ import equilibrium.br.processo.util.GerarNumeroProcesso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import equilibrium.br.processo.exptions.ProcessoNaoEncontradoException;
+import equilibrium.br.processo.exeption.ProcessoNaoEncontradoException;
 import equilibrium.br.processo.repository.ProcessoRepository;
 import jakarta.transaction.Transactional;
 
@@ -19,7 +19,7 @@ public class ServiceProcesso {
 	@Autowired
 	private ProcessoRepository processoRepository;
 
-	public ProcessoModel salvarProcesso(DtoProcesso dtoProcesso) throws ProcessoNaoEncontradoException {
+	public ProcessoModel salvarProcesso(DtoProcesso dtoProcesso)   {
 
 		ProcessoModel processo = new ProcessoModel();
 
@@ -28,18 +28,24 @@ public class ServiceProcesso {
 		processo.setDataEntrada(dtoProcesso.getDataEntrada());
 		processo.setValorRecurso(dtoProcesso.getValorRecurso());
 		processo.setTipoProcesso(dtoProcesso.getTipoProcesso());
-		// Salvar no banco de dados
 		return processoRepository.save(processo);
 
 	}
-	public ProcessoModel editarProcesso(ProcessoModel processo) throws ProcessoNaoEncontradoException {
+	public ProcessoModel editarProcesso(ProcessoModel processo)   {
 
 		ProcessoModel processoParaAtualizar = new ProcessoModel();
+		if(processo.getNumeroProcesso() == null) {
+			processo.setNumeroProcesso(GerarNumeroProcesso.gerarMatriculaProcesso());
+            processoParaAtualizar.setNumeroProcesso(processo.getNumeroProcesso());
+		}
+		processoParaAtualizar.setNumeroProcesso(processo.getNumeroProcesso());
 		processoParaAtualizar.setDataEntrada(processo.getDataEntrada());
 		processoParaAtualizar.setValorRecurso(processo.getValorRecurso());
 		processoParaAtualizar.setObjetivo(processo.getObjetivo());
 		processoParaAtualizar.setTipoProcesso(processo.getTipoProcesso());
-		// atualizar  no banco de dados
+		processoParaAtualizar.setNumeroProcesso(processo.getNumeroProcesso());
+		processoParaAtualizar.setId(processo.getId());
+
 		return processoRepository.save(processoParaAtualizar);
 
 	}

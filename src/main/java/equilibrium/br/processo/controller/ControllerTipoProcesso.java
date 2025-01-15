@@ -24,7 +24,7 @@ public class ControllerTipoProcesso {
 
     @Operation(summary = "Cria tipo de processo ", description = "Este endpoint criar tipo de processo  com base nos dados enviados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "ProcessoModel salvo  com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoProcessoModel.class))),
+            @ApiResponse(responseCode = "201", description = "Tipo de processo  salvo  com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TipoProcessoModel.class))),
             @ApiResponse(responseCode = "400", description = " Dados de entrada inválidos.")
     })
     @PostMapping("/novotipo")
@@ -33,13 +33,13 @@ public class ControllerTipoProcesso {
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceTipoProcesso.criarTipoProcesso(dtoTipoProcesso));
     }
 
-    @GetMapping("/tiposprocessos")
+    @GetMapping("/tipoprocessos")
     @Operation(summary = "Lista todos os tipos de processo", responses = {} , ignoreJsonView = false)
     @ApiResponses(value = {
            @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json" ,schema = @Schema(implementation = TipoProcessoModel.class)) ,useReturnTypeSchema = true )
     })
-    public List<TipoProcessoModel>  listarTiposProcesso() {
+    public ResponseEntity< List<TipoProcessoModel>>  listarTiposProcesso() {
 
-    return serviceTipoProcesso.listarTiposProcessos();
+    return ResponseEntity.status(HttpStatus.OK).body(serviceTipoProcesso.listarTiposProcessos());
     }
 }
