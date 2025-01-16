@@ -95,19 +95,38 @@ Crie as tabelas:
 
 ```sql
 CREATE TABLE processo (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    descricao TEXT NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  CREATE TABLE processo (
+    id_processo BIGSERIAL PRIMARY KEY,
+    numero_processo VARCHAR(255) UNIQUE NOT NULL,
+    data_entrada DATE NOT NULL,
+    valor_recurso NUMERIC(15, 2) NOT NULL,
+    objetivo TEXT NOT NULL,
+    tipo_processo_id BIGINT NOT NULL,
+    CONSTRAINT fk_tipo_processo FOREIGN KEY (tipo_processo_id)
+    REFERENCES tipo_processo (id)
+);
+
 );
 
 CREATE TABLE tipo_processo (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL
+    descrição VARCHAR(255) NOT NULL
 );
 ```
 
 ---
+
+CREATE TABLE processo (
+    id_processo BIGSERIAL PRIMARY KEY,
+    numero_processo VARCHAR(255) UNIQUE NOT NULL,
+    data_entrada DATE NOT NULL,
+    valor_recurso NUMERIC(15, 2) NOT NULL,
+    objetivo TEXT NOT NULL,
+    tipo_processo_id BIGINT NOT NULL,
+    CONSTRAINT fk_tipo_processo FOREIGN KEY (tipo_processo_id)
+    REFERENCES tipo_processo (id)
+);
+
 
 ### 3. Configurar o `application.properties`
 
@@ -123,6 +142,8 @@ spring.jpa.show-sql=true
 ```
 
 ---
+
+
 
 ### 4. Executar o Projeto
 
