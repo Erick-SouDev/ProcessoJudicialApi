@@ -201,4 +201,8 @@ http://localhost:8080
 ## Estrutura Da Documentação
 ![Capturar](https://github.com/user-attachments/assets/aa782d0c-6688-4d8e-806e-704ad4dabbca)
 
+##  Resumo dos dados
+
+![jsonimgtipoprocesso](https://github.com/user-attachments/assets/d478a9e1-d14f-4437-8463-b3b40f8ae712)
+
 
