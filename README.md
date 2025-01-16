@@ -115,19 +115,6 @@ CREATE TABLE tipo_processo (
 ```
 
 ---
-
-CREATE TABLE processo (
-    id_processo BIGSERIAL PRIMARY KEY,
-    numero_processo VARCHAR(255) UNIQUE NOT NULL,
-    data_entrada DATE NOT NULL,
-    valor_recurso NUMERIC(15, 2) NOT NULL,
-    objetivo TEXT NOT NULL,
-    tipo_processo_id BIGINT NOT NULL,
-    CONSTRAINT fk_tipo_processo FOREIGN KEY (tipo_processo_id)
-    REFERENCES tipo_processo (id)
-);
-
-
 ### 3. Configurar o `application.properties`
 
 No diretório do projeto, localize o arquivo `src/main/resources/application.properties` e configure as credenciais de conexão com o PostgreSQL. Um exemplo de configuração seria:
