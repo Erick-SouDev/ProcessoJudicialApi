@@ -31,7 +31,7 @@ public class ProcessoModel implements Serializable {
     private String objetivo;
     
     
-    @ManyToOne(cascade = CascadeType.REFRESH  , fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH , optional = false )
     @JoinColumn(name ="tipo_processo_id"  )
 	private TipoProcessoModel tipoProcesso;
 
