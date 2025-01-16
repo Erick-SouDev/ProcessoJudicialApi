@@ -203,6 +203,8 @@ http://localhost:8080
 
 ##  Resumo dos dados
 
-![jsonimgtipoprocesso](https://github.com/user-attachments/assets/d478a9e1-d14f-4437-8463-b3b40f8ae712)
+
+![Capturar](https://github.com/user-attachments/assets/0d9bcacb-ed26-4d23-9560-3c4dac44f139)
+![jsonimgtipoprocesso](https://github.com/user-attachments/assets/c092b8c0-bd60-43a6-a26e-3a6163a5f994)
 
 
