@@ -175,7 +175,7 @@ Siga os passos abaixo para clonar o repositório, configurar o ambiente e rodar 
 
 ```bash
 git clone <URL-DO-SEU-REPOSITORIO>
-cd ProcessoJudiciaisApi
+cd ProcessoJudicialApi
 ```
 
 ### 2. Certifique-se de que o Docker está rodando
