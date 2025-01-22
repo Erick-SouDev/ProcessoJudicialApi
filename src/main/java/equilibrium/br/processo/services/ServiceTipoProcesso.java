@@ -1,5 +1,5 @@
 package equilibrium.br.processo.services;
-import equilibrium.br.processo.dto.DtoTipoProcesso;
+import equilibrium.br.processo.dto.TipoProcessoDTO;
 import equilibrium.br.processo.entity.TipoProcessoModel;
 import equilibrium.br.processo.repository.TipoProcessoRepository;
 import jakarta.transaction.Transactional;
@@ -14,7 +14,7 @@ public class ServiceTipoProcesso {
     @Autowired
     private TipoProcessoRepository tipoProcessoRepository;
 
-    public TipoProcessoModel criarTipoProcesso(DtoTipoProcesso dtoTipoProcesso){
+    public TipoProcessoModel criarTipoProcesso(TipoProcessoDTO dtoTipoProcesso){
         TipoProcessoModel tipoProcesso = new TipoProcessoModel();
         tipoProcesso.setDescricao(dtoTipoProcesso.getDescricao());
         return  tipoProcessoRepository.saveAndFlush(tipoProcesso);

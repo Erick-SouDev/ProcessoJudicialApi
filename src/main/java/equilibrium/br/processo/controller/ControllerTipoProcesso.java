@@ -1,6 +1,6 @@
 package equilibrium.br.processo.controller;
 
-import equilibrium.br.processo.dto.DtoTipoProcesso;
+import equilibrium.br.processo.dto.TipoProcessoDTO;
 import equilibrium.br.processo.entity.TipoProcessoModel;
 import equilibrium.br.processo.services.ServiceTipoProcesso;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +28,7 @@ public class ControllerTipoProcesso {
             @ApiResponse(responseCode = "400", description = " Dados de entrada inválidos.")
     })
     @PostMapping("/novotipo")
-    public ResponseEntity<TipoProcessoModel> criarNovoTipoProcesso(@RequestBody DtoTipoProcesso dtoTipoProcesso)  {
+    public ResponseEntity<TipoProcessoModel> criarNovoTipoProcesso(@RequestBody TipoProcessoDTO dtoTipoProcesso)  {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceTipoProcesso.criarTipoProcesso(dtoTipoProcesso));
     }

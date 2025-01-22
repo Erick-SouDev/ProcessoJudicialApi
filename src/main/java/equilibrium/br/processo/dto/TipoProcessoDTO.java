@@ -1,6 +1,6 @@
 package equilibrium.br.processo.dto;
 
-public class DtoTipoProcesso {
+public class TipoProcessoDTO {
 
     private  String descricao;
 

@@ -1,8 +1,10 @@
+
 package equilibrium.br.processo.controller;
 
-import equilibrium.br.processo.dto.DtoProcesso;
+import equilibrium.br.processo.dto.ProcessoDTO;
 import equilibrium.br.processo.entity.ProcessoModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +35,7 @@ public class ControllerProcesso {
             @ApiResponse(responseCode = "400", description = " Dados de entrada inválidos.")
     })
     @PostMapping("/novoprocesso")
-    public ResponseEntity<ProcessoModel> novoProcesso(@RequestBody DtoProcesso dtoProcesso) throws ProcessoNaoEncontradoException {
+    public ResponseEntity<ProcessoModel> novoProcesso(@RequestBody ProcessoDTO dtoProcesso) throws ProcessoNaoEncontradoException {
         return ResponseEntity.status(HttpStatus.CREATED).body(serviceProcesso.salvarProcesso(dtoProcesso));
     }
 
@@ -43,9 +45,9 @@ public class ControllerProcesso {
             @ApiResponse(responseCode = "201", description = "ProcessoModel  atualizado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "400", description = " Dados de entrada inválidos.")
     })
-    @PutMapping("/atualizarprocesso") // Esse endpoint cria ou atualiza um processo
-    public ResponseEntity<ProcessoModel> editarProcesso(@RequestBody ProcessoModel processo) throws ProcessoNaoEncontradoException {
-        return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.editarProcesso(processo));
+    @PutMapping("/{id}") // Esse endpoint cria ou atualiza um processo
+    public ResponseEntity<ProcessoModel> editarProcesso(@PathVariable Long id ,  @RequestBody ProcessoModel processo) throws ProcessoNaoEncontradoException {
+        return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.editarProcesso(id  ,processo));
     }
 
 
@@ -54,7 +56,7 @@ public class ControllerProcesso {
             @ApiResponse(responseCode = "200", description = "Processo encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "404", description = "Processo não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
     @GetMapping("/buscar/{id}") // Busca um processo pelo ID
-    public ResponseEntity<ProcessoModel> buscarProcessoPorId(@PathVariable Long id) {
+    public ResponseEntity<ProcessoModel> buscarProcessoPorId(@PathVariable Long id) throws ProcessoNaoEncontradoException {
         ProcessoModel processo = serviceProcesso.buscarProcesso(id);
         return ResponseEntity.status(HttpStatus.OK).body(processo);
     }
@@ -75,11 +77,11 @@ public class ControllerProcesso {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "processo  encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "404", description = "processo  não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
-    @GetMapping("/pesquisar/{numeroProcesso}") // Busca um processo pelo número do processo
-    public ResponseEntity<ProcessoModel> buscarProcessoPorNumero(@PathVariable String numeroProcesso)
+    @GetMapping(value = "pesquisarprocesso") // Busca um processo pelo número do processo
+    public Page<ProcessoModel> buscarProcessoPorNumeroPaginda(@RequestParam String numero , @RequestParam int page , @RequestParam int size)
             throws ProcessoNaoEncontradoException {
 
-        return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.pesquisarProcessoPorNumero(numeroProcesso));
+        return serviceProcesso.pesquisarProcessoPorNumero(numero,page,size);
 
     }
 
@@ -90,9 +92,9 @@ public class ControllerProcesso {
     public ResponseEntity<List<ProcessoModel>> listarProcessos(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "2") int limit) {
         return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.buscarProcessosPaginados(page, limit));
     }
-    
+
     @Operation(summary = "Carregar processos por tipo de processo ", description = "Carrega todos os processos associados a um tipo de processo especificado pela descrição.")
-            @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "404", description = "Tipo de processo não encontrado.", content = @Content(mediaType = "application/json"))})
     @GetMapping("/processosportipo/{descricao}")
     public ResponseEntity<List<ProcessoModel>> carregarProcessosPorTipo(@PathVariable String descricao) {

@@ -3,7 +3,7 @@ package equilibrium.br.processo.dto;
 import equilibrium.br.processo.entity.TipoProcessoModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-public class DtoProcesso {
+public class ProcessoDTO {
 
 
     private LocalDate dataEntrada;
