@@ -74,9 +74,5 @@ public class ServiceProcesso {
     }
 
 
-    public List<ProcessoModel> carregarProcessosPorTipo(String descricao) {
-        return processoRepository.buscarProcessosPorTipoProcesso(descricao);
-    }
-
 
 }

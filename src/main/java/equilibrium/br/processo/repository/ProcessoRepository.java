@@ -20,8 +20,7 @@ public interface ProcessoRepository extends JpaRepository<ProcessoModel, Long> {
 	@Query("SELECT p FROM ProcessoModel p WHERE p.numeroProcesso LIKE :numeroProcesso%")
 	Page<ProcessoModel> pesquisarProcesso(@Param("numeroProcesso") String numeroProcesso , Pageable pageable);
 
-	@Query("SELECT p FROM ProcessoModel p INNER JOIN p.tipoProcesso t WHERE t.descricao = :descricao")
-	List<ProcessoModel> buscarProcessosPorTipoProcesso(@Param("descricao") String descricao);
+
 
 
 

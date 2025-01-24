@@ -1,39 +1,22 @@
 package equilibrium.br.processo.HandlerExeption;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ErroResponse {
 
 	private int codigoErro; // Código do erro (ex: "400", "404")
-	private  String detalhe ; // detalhes do erro
-	private String mensagem; // Mensagem de erro
-	// Construtores
-	public ErroResponse(int codigoErro, String mensagem  , String detalhe) {
-		this.codigoErro = codigoErro;
-		this.mensagem = mensagem;
-		this.detalhe = detalhe;
-	}
 
-	public int getCodigoErro() {
-		return codigoErro;
-	}
+	private String descricao; // Mensagem de erro
 
-	public void setCodigoErro(int codigoErro) {
-		this.codigoErro = codigoErro;
-	}
+	private  String menssagem ;
 
-	public String getMensagem() {
-		return mensagem;
-	}
 
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
-	}
 
-	public String getDetalhe() {
-		return detalhe;
-	}
-
-	public void setDetalhe(String detalhe) {
-		this.detalhe = detalhe;
-	}
 }

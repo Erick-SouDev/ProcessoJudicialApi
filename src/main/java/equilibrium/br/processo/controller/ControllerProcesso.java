@@ -55,10 +55,10 @@ public class ControllerProcesso {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Processo encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "404", description = "Processo não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
-    @GetMapping("/buscar/{id}") // Busca um processo pelo ID
+    @GetMapping("/{id}") // Busca um processo pelo ID
     public ResponseEntity<ProcessoModel> buscarProcessoPorId(@PathVariable Long id) throws ProcessoNaoEncontradoException {
-        ProcessoModel processo = serviceProcesso.buscarProcesso(id);
-        return ResponseEntity.status(HttpStatus.OK).body(processo);
+
+        return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.buscarProcesso(id));
     }
 
 
@@ -66,18 +66,18 @@ public class ControllerProcesso {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Processo removido com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "404", description = "Processo não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
-    @DeleteMapping("/excluir/{id}") // Remove um processo pelo ID
+    @DeleteMapping("/{id}") // Remove um processo pelo ID
     public ResponseEntity<String> removerProcessoPorId(@PathVariable Long id) {
         serviceProcesso.removerProcesso(id);
         return ResponseEntity.status(HttpStatus.OK).body("processo  removido com sucesso.");
     }
 
 
-    @Operation(summary = "Buscar processo  pelo numero gerado de processo ", description = "Busca um processo pelo número .")
+    @Operation(summary = "Buscar processo  pelo numero gerado de processo  ", description = "Busca um processo pelo número  com paginação.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "processo  encontrado com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
             @ApiResponse(responseCode = "404", description = "processo  não encontrado.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErroResponse.class)))})
-    @GetMapping(value = "pesquisarprocesso") // Busca um processo pelo número do processo
+    @GetMapping("/buscarprocesso") // Busca um processo pelo número do processo
     public Page<ProcessoModel> buscarProcessoPorNumeroPaginda(@RequestParam String numero , @RequestParam int page , @RequestParam int size)
             throws ProcessoNaoEncontradoException {
 
@@ -93,13 +93,7 @@ public class ControllerProcesso {
         return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.buscarProcessosPaginados(page, limit));
     }
 
-    @Operation(summary = "Carregar processos por tipo de processo ", description = "Carrega todos os processos associados a um tipo de processo especificado pela descrição.")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Lista de processos retornada com sucesso.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProcessoModel.class))),
-            @ApiResponse(responseCode = "404", description = "Tipo de processo não encontrado.", content = @Content(mediaType = "application/json"))})
-    @GetMapping("/processosportipo/{descricao}")
-    public ResponseEntity<List<ProcessoModel>> carregarProcessosPorTipo(@PathVariable String descricao) {
-        return ResponseEntity.status(HttpStatus.OK).body(serviceProcesso.carregarProcessosPorTipo(descricao));
-    }
+
 
 
 }
